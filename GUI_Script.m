@@ -1,0 +1,13 @@
+[ALLEEG EEG CURRENTSET ALLCOM] = eeglab;
+EEG = pop_readegi('C:\Users\acer\Desktop\EEG_Project\EEG_Data\CAPS125_C1_20160722_015321.raw', [],[],'auto');
+[ALLEEG EEG CURRENTSET] = pop_newset(ALLEEG, EEG, 0,'gui','off'); 
+EEG = eeg_checkset( EEG );
+pop_eegplot( EEG, 1, 1, 1);
+EEG = eeg_checkset( EEG );
+EEG = pop_reref( EEG, []);
+[ALLEEG EEG CURRENTSET] = pop_newset(ALLEEG, EEG, 1,'setname','CAPS125_C1_P','gui','off'); 
+EEG = pop_eegfiltnew(EEG, 'locutoff',0.1,'hicutoff',50,'revfilt',1,'plotfreqz',1);
+[ALLEEG EEG CURRENTSET] = pop_newset(ALLEEG, EEG, 2,'overwrite','on','gui','off'); 
+EEG = eeg_checkset( EEG );
+EEG = pop_resample( EEG, 250);
+[ALLEEG EEG CURRENTSET] = pop_newset(ALLEEG, EEG, 2,'overwrite','on','gui','off'); 

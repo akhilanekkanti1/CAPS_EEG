@@ -13,7 +13,8 @@ Akhila Nekkanti (akhilan@uoregon.edu)
 5) Low pass filter at 50 Hz (since we are not interested in activity higher than 30 Hz)
 6) Additional notch filter at 60Hz
 7) Downsample to 250 Hz to speed up ICA
-8) ICA and component rejection of eye artifact components
+8) ICA and component rejection of eye artifact components -- not yet
+completed
 
 *** Imported files are in Simple Binary Format (.RAW) from Netstation
 %}
@@ -93,12 +94,11 @@ EEG = eeg_checkset( EEG )
 %% 5. filter
 % See:https://github.com/sccn/eeglab/blob/develop/functions/popfunc/pop_eegfilt.m
 
-EEG = pop_eegfilt( EEG, 0.1, 50, [1]) %change this to two separate steps later - first highpass then lowpass
+%%EEG = pop_eegfiltnew( EEG, 0.1, 50, [1]) %change this to two separate steps later - first highpass then lowpass
+
+EEG = pop_eegfiltnew(EEG, 'locutoff',0.1,'hicutoff',50,'revfilt',1,'plotfreqz',1)
 
 EEG = eeg_checkset( EEG ) 
-
-%notch filter
-
 
 
 % Inputs:
@@ -126,8 +126,9 @@ EEG = eeg_checkset( EEG )
 %   freq       - frequency to resample (Hz)  
 
 EEG = pop_resample(EEG, 250)
-%% 
+%% figures (?)
 
 figure; topoplot([],EEG.chanlocs, 'style', 'blank', 'electrodes', 'labelpoint')
 figure; pop_spectopo(EEG, 1, [0 238304.6875], 'EEG' , 'percent', 15, 'freq', [6 10 22], 'freqrange',[2   25],'electrodes','off')
 
+%% ICA
