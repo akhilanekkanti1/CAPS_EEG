@@ -20,9 +20,7 @@ completed
 %}
 
 %%%% Still to do: rename files so each is labelled
-%%%% add notch filter
-%%%% add channel locations -- necessary for these files when using pop
-%%%% functions?
+%%%% add channel locations -- necessary for these files when using pop?
 %%%% remove bad channels - 
 %%%% compile all into a STUDY
 
@@ -49,8 +47,6 @@ cd '/Users/acer/Desktop/EEG_Project/EEG_Data'
 
 
 %Once it is in a cell array, you can access the data with {}
-
-
 %v = cellfun(char2mat,file)
 %v = [file{:}]
 
@@ -94,7 +90,7 @@ EEG = eeg_checkset( EEG )
 %% 5. filter
 % See:https://github.com/sccn/eeglab/blob/develop/functions/popfunc/pop_eegfilt.m
 
-%%EEG = pop_eegfiltnew( EEG, 0.1, 50, [1]) %change this to two separate steps later - first highpass then lowpass
+%%EEG = pop_eegfilt( EEG, 0.1, 50, [1]) %change this to two separate steps later - first highpass then lowpass
 
 EEG = pop_eegfiltnew(EEG, 'locutoff',0.1,'hicutoff',50,'revfilt',1,'plotfreqz',1)
 
