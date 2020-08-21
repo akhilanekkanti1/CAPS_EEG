@@ -7,24 +7,22 @@ Akhila Nekkanti (akhilan@uoregon.edu)
 %{
  This script includes steps to:
 1) Load EEGlab
-2) *Import .RAW data from 64 channel nets
-3) Load .RAW data into appropriate format
-4) Re-reference to average reference
-5) Low pass filter at 50 Hz (since we are not interested in activity higher than 30 Hz)
-6) Additional notch filter at 60Hz
-7) Downsample to 250 Hz to speed up ICA
-8) ICA and component rejection of eye artifact components -- not yet
-completed
+2) *Import .RAW data 
+3) Read .RAW data and import channel locations 
+4) Run high-pass filter
+5) Channel interpolation
+6) Reference to average
+7) Low pass filter
+8) Resample to 250 Hz
+9) ICA and component rejection of eye artifacts
 
 *** Imported files are in Simple Binary Format (.RAW) from Netstation
+Next steps:
+1) manual artifact rejection
+2)
+3)
+
 %}
-
-%%%% Still to do: rename files so each is labelled
-%%%% add channel locations -- necessary for these files when using pop?
-%%%% remove bad channels - 
-%%%% compile all into a STUDY
-
-%%%% manual artifact rejection
 
 %% 1. Load EEGlab
 % First, set your MATLAB path to the location of the EEGlab folder.
