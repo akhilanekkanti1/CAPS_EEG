@@ -40,7 +40,8 @@ eeglab
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %change directory to location of EEG data
-cd '/Users/acer/Desktop/EEG_Project/EEG_Data'
+%cd '/Users/acer/Desktop/EEG_Project/EEG_Data'
+cd '//cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/EEG/raw_files/wv1/Child_files/BATCH_1'
 
 %use uigetfile to load multiple .RAW files into a cell array
 [file, path, indx] = uigetfile( '*.raw' , 'Select One or More Files' , 'MultiSelect' , 'on' );
