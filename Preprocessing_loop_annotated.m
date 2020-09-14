@@ -46,6 +46,9 @@ cd '//cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/
 %use uigetfile to load multiple .RAW files into a cell array
 [file, path, indx] = uigetfile( '*.raw' , 'Select One or More Files' , 'MultiSelect' , 'on' );
 
+%alternate to uigetfile
+%getFile(d,'/home/user/test_folder/*.raw')
+
 for s = 1:size(file,2) 
 %% 3. Read in .RAW files and channel locations at outset.
 % See: https://github.com/sccn/eeglab/blob/develop/functions/popfunc/pop_readegi.m
@@ -66,7 +69,13 @@ for s = 1:size(file,2)
 %% 6. Channel Interpolation: checks for bad channels (those that produce high freq noise)
 % spherical interpolation reduces chances for loss of data that comes from 
 % calculating the mean from surrounding channels.
+
+% automatic detection of bad channels 
+    [throwAway badChannels] = pop_rejchan(EEG, 'elec' ,[1:64] , 'threshold' ,5, 'norm' , 'on' , 'measure' , 'kurt' );
+
+    % spherical interpolation of bad channels 
     EEG = pop_interp(EEG, badChannels, 'spherical' ); 
+
     
 %% 7. Re-reference to average: allows more consistent comparison across studies/samples 
 % See: https://github.com/sccn/eeglab/blob/develop/functions/popfunc/pop_reref.m
@@ -92,10 +101,18 @@ for s = 1:size(file,2)
     EEG = pop_runica(EEG, 'interupt' , 'on' ); 
 
 %% SAVE Output in .mat format.    
+
+
+%cd('/Users/acer/Dropbox/EEG_Data/preprocessed/wv1/')
+
+cd ('/cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/EEG/preprocessed/wv1/child/')
+
     name = file{s}; 
     name = [name(1:end-4), '.mat' ]; 
     save(name, 'EEG' , 'badChannels' );
+    
+   STUDY = []; CURRENTSTUDY = 0; ALLEEG = []; EEG=[]; CURRENTSET=[]; 
 
-    STUDY = []; CURRENTSTUDY = 0; ALLEEG = []; EEG=[]; CURRENTSET=[]; 
+%pop_saveset( EEG, '/cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/EEG/preprocessed/wv1/child/');
 end 
 
