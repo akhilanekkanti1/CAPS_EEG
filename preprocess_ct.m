@@ -33,7 +33,7 @@ file=$sub
     EEG = eeg_checkset( EEG); 
     
 % 64 channel net locations
-    EEG=pop_chanedit(EEG, 'load',{'C:/Users/acer/Desktop/CAPS_EEG/electrode_locations/GSN-HydroCel-64_1.0.sfp','filetype' 'sfp'});
+    EEG=pop_chanedit(EEG, 'load',{'/projects/fabblab/shared/EEG/scripts/GSN-HydroCel-64_1.0','filetype' 'sfp'});
  
 %% 5. High-pass Filter: removes non-stationary signal drift across the recording 
 
