@@ -1,0 +1,38 @@
+ACCESSING TALAPAS:
+
+ssh -X akhilan@talapas-ln1.uoregon.edu
+
+cd /projects/fabblab/shared/EEG/PreProcessing
+
+MOVING FILES:
+
+script: 
+
+scp -rp akhilan@talapas-ln1.uoregon.edu:/projects/fabblab/shared/*.mat //cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/EEG/preprocessed/wv1/child
+
+scp -rp C:/Users/acer/Desktop/CAPS_EEG/batch.sh akhilan@talapas-ln1.uoregon.edu:/projects/fabblab/shared/EEG/scripts
+
+path to:
+
+//cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/EEG/preprocessed/wv1/child
+
+path from:
+scp 
+/projects/fabblab/shared/EEG/PreProcessing
+
+LOAD MATLAB
+
+#git clone --recurse-submodules https://github.com/sccn/eeglab.git
+
+module load matlab
+export MATLABPATH=/projects/fabblab/akhilan/matlab/eeglab
+matlab
+
+TO RUN SCRIPT ON A SINGLE FILE
+
+sbatch --export=--SUBJ=${file} --job-name PreProcess --partition=ctn --account=fabblab --output=batch_1.out --error=batch_1.err --nodes=1 --ntasks=1 --time=0-00:10:00 matlab -nodisplay < preprocess_ct.m
+
+module load matlab
+
+matlab -nodisplay < Preprocessing_loop_annotated_talapas.m
+
