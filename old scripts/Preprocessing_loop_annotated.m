@@ -48,8 +48,9 @@ cd '//cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/
 
 %alternate to uigetfile
 %getFile(d,'/home/user/test_folder/*.raw')
+ EEG=pop_chanedit(EEG, 'load',{'C:/Users/acer/Desktop/CAPS_EEG/electrode_locations/GSN-HydroCel-64_1.0.sfp','filetype' 'sfp'});
 
-for s = 1:size(file,2) 
+ for s = 1:size(file,2) 
 %% 3. Read in .RAW files and channel locations at outset.
 % See: https://github.com/sccn/eeglab/blob/develop/functions/popfunc/pop_readegi.m
 
@@ -58,7 +59,7 @@ for s = 1:size(file,2)
     
 %channel location files are taken from fieldtrip/fieldtrip/template github
 % 64 channel net locations
-    EEG=pop_chanedit(EEG, 'load',{'C:/Users/acer/Desktop/CAPS_EEG/electrode_locations/GSN-HydroCel-64_1.0.sfp','filetype' 'sfp'});
+   
  
 %% 5. High-pass Filter: removes non-stationary signal drift across the recording 
 % See: https://github.com/sccn/eeglab/blob/develop/functions/popfunc/pop_eegfilt.m
@@ -71,7 +72,7 @@ for s = 1:size(file,2)
 % calculating the mean from surrounding channels.
 
 % automatic detection of bad channels 
-    [throwAway badChannels] = pop_rejchan(EEG, 'elec' ,[1:64] , 'threshold' ,5, 'norm' , 'on' , 'measure' , 'kurt' );
+    [throwAway, badChannels] = pop_rejchan(EEG, 'elec' ,[1:64] , 'threshold' ,5, 'norm' , 'on' , 'measure' , 'kurt' );
 
     % spherical interpolation of bad channels 
     EEG = pop_interp(EEG, badChannels, 'spherical' ); 
@@ -93,7 +94,7 @@ for s = 1:size(file,2)
 % See: https://github.com/sccn/eeglab/blob/develop/functions/popfunc/pop_resample.m  
 %resampling with pop_resample ensures that the highest frequency in data is (at max) half the
 %sampling frequency via an anti-aliasing filter
-    EEG = pop_resample(EEG, 250) 
+    EEG = pop_resample(EEG, 250); 
 
 %% 10. ICA: 
 % runica 
@@ -101,11 +102,6 @@ for s = 1:size(file,2)
     EEG = pop_runica(EEG, 'interupt' , 'on' ); 
 
 %% SAVE Output in .mat format.    
-
-
-%cd('/Users/acer/Dropbox/EEG_Data/preprocessed/wv1/')
-
-cd ('/cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/EEG/preprocessed/wv1/child/')
 
     name = file{s}; 
     name = [name(1:end-4), '.mat' ]; 
@@ -116,3 +112,5 @@ cd ('/cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/
 %pop_saveset( EEG, '/cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/EEG/preprocessed/wv1/child/');
 end 
 
+com = pop_export(EEG);  
+pop_expica( EEG, whichica);  
