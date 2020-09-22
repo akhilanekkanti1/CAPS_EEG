@@ -23,11 +23,11 @@ eeglab
 
 %% 2. Load .RAW Data
 %change directory to location of EEG data
-cd '/projects/fabblab/shared/EEG/Batch1'
+cd '/projects/fabblab/shared/EEG/data/Batch1'
 
 %% 3. Read in .RAW files and channel locations at outset.
 
-file=$SUB
+file=sub
 
     EEG = pop_readegi([file], [], [], 'auto' ); %#ok<NBRAK>
     EEG = eeg_checkset( EEG);
