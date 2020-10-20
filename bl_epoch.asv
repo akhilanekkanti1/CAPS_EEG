@@ -1,0 +1,33 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cd '/Users/acer/Desktop/EEG_Project/eeglab_current/eeglab2019_1'
+eeglab
+
+cd 'C:/Users/acer/Dropbox (University of Oregon)/EEG_Data/'
+[ALLEEG EEG CURRENTSET ALLCOM] = eeglab;
+EEG = pop_loadset('filename','CAPS410-C1_20170809_094123.mat','filepath','C:\\Users\\acer\\Dropbox (University of Oregon)\\EEG_Data\\preprocessed\\');
+ 
+eyeoset = ['CAPS410-C1_eyeo'];
+eyecset = ['CAPS114_1020.mat',(1:10) '_eyec'];
+
+EEG = pop_epoch( EEG, {  'eyeo'  }, [0  60], 'newname', eyeoset, 'epochinfo', 'yes');
+
+[ALLEEG EEG CURRENTSET] = pop_newset(ALLEEG, EEG, 1,'savenew', eyeoset ,'gui','off'); 
+EEG = eeg_checkset( EEG );
+
+EEG = pop_epoch( EEG, {  'eyec'  }, [0  60], 'newname', eyecset, 'epochinfo', 'yes'); 
+[ALLEEG EEG CURRENTSET] = pop_newset(ALLEEG, EEG, 1,'savenew', eyecset ,'gui','off'); 
+
+
+STUDY = []; CURRENTSTUDY = 0; ALLEEG = []; EEG=[]; CURRENTSET=[];
+
+[ALLEEG EEG CURRENTSET ALLCOM] = eeglab;
+
+
+%%%%plotting
+EEG = pop_loadset('filename','CAPS114_1020_eyeo.set','filepath','C:\\Users\\acer\\Dropbox (University of Oregon)\\EEG_Data\\');
+[ALLEEG, EEG, CURRENTSET] = eeg_store( ALLEEG, EEG, 0 );
+
+EEG = eeg_checkset( EEG );
+figure; pop_spectopo(EEG, 1, [0  60], 'EEG' , 'percent', 100, 'freq', [6 7 8 9 10 11 12], 'freqrange',[2 25],'electrodes','on');
+EEG = eeg_checkset( EEG );

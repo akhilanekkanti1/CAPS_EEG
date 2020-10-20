@@ -10,7 +10,7 @@ script:
 
 scp -rp akhilan@talapas-ln1.uoregon.edu:/projects/fabblab/shared/*.mat //cas-fs1/psy-ctn/psy-ctn/FABBLab/CAPS-Assessment/CAPS_Data/Data_Processing/EEG/preprocessed/wv1/child
 
-scp -rp C:/Users/acer/Desktop/CAPS_EEG/batch.sh akhilan@talapas-ln1.uoregon.edu:/projects/fabblab/shared/EEG/scripts
+scp -rp /drives/c/Users/acer/Desktop/CAPS_EEG/subj_list1.txt akhilan@talapas-ln1.uoregon.edu:/projects/fabblab/shared/EEG/scripts
 
 path to:
 

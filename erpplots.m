@@ -1,0 +1,10 @@
+[ALLEEG EEG CURRENTSET ALLCOM] = eeglab;
+EEG = pop_loadset('filename','CAPS410-C1_20170809_094123.mat','filepath','\\\\cas-fs1\\psy-ctn\\psy-ctn\\FABBLab\\CAPS-Assessment\\CAPS_Data\\Data_Processing\\EEG\\preprocessed\\wv1\\child\\9.22.20.import\\');
+[ALLEEG, EEG, CURRENTSET] = eeg_store( ALLEEG, EEG, 0 );
+EEG = eeg_checkset( EEG );
+EEG = pop_epoch( EEG, {  }, [-1  2], 'newname', 'EGI file resampled epochs', 'epochinfo', 'yes');
+[ALLEEG EEG CURRENTSET] = pop_newset(ALLEEG, EEG, 1,'savenew','CAPS410_epoch_test','gui','off'); 
+EEG = eeg_checkset( EEG );
+figure; pop_timtopo(EEG, [-1000  1996], [NaN], 'ERP data and scalp maps of EGI file resampled epochs 410');
+EEG = eeg_checkset( EEG );
+figure; pop_plottopo(EEG, [1:64] , 'EGI file resampled epochs', 0, 'ydir',1);
